@@ -9,6 +9,7 @@
 #include <iterator>
 #include <map>
 #include <algorithm>
+#include <typeinfo>
 
 using namespace std;
 
@@ -27,10 +28,10 @@ int main ()
   map < string, float >quizMap;
 
   //populate the quiz with your solidified quiz grades
-  quizMap.insert (make_pair ("Q1", (11.0 / 12.0) * 100));
-  quizMap.insert (make_pair ("Q2", (11.5 / 14.0) * 100));
-  quizMap.insert (make_pair ("Q3", (17.0 / 27.0) * 100));
-  quizMap.insert (make_pair ("Q4", (24.0 / 24.0) * 100));
+  quizMap.insert (make_pair ("Q1", (11.0 / 12.0) * 100.0));
+  quizMap.insert (make_pair ("Q2", (11.5 / 14.0) * 100.0));
+  quizMap.insert (make_pair ("Q3", (17.0 / 27.0) * 100.0));
+  quizMap.insert (make_pair ("Q4", (24.0 / 24.0) * 100.0));
 
   //print the map
   cout << "Quiz Grades as following: " << endl;
@@ -40,7 +41,7 @@ for (auto i:quizMap)
 
 
   //drop the lowest two from the quiz
-	vector<pair<string, int> > vec;
+	vector<pair<string, float> > vec;
 
   // copy key-value pairs from the map to the vector
   map<string, float> :: iterator it2;
@@ -62,17 +63,28 @@ for (auto i:quizMap)
     vec.erase(vec.begin());
     vec.erase(vec.begin());
     float averageQuiz = 0.0;
+    float N = (float)vec.size();
     
     cout << "Updated Quizzes are: " << endl;
 	for (int i = 0; i < vec.size(); i++)
 	{
 		cout << vec[i].first << ": " << vec[i].second << endl;
-		float averageQuiz = averageQuiz + vec[i].second;
+        averageQuiz = averageQuiz + vec[i].second;
+        //cout << typeid(vec[i].second).name() << endl;
 	}
-    
     //find the average of Quizzes
     
-    cout << averageQuiz ;
+    cout << "The Quiz Average with the two lowest dropped is: " << endl;
+    cout << averageQuiz/N << endl;
+    
+    //Exam 1
+    
+    float exam1 = 82.0;
+    //Exam 2
+    float exam2 = 0.0;
+    //total grade:
+    float totalGrade = (averageQuiz*(0.4))/N + exam1*(0.3) + exam2*(.3);
+    cout << "Your total grade is :" << totalGrade/0.7 << endl;
   return 0;
 }
 
